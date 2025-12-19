@@ -74,6 +74,62 @@ const Auth = () => {
     return Object.keys(newErrors).length === 0;
   };
 
+// const handleSubmit = async (e) => {
+//   e.preventDefault();
+//   if (!validate()) return;
+
+//   setIsLoading(true);
+
+//   try {
+//     if (activeTab === 'signup') {
+//       // Signup API
+//       const response = await fetch('http://localhost:3000/api/provider/register', {
+//         method: 'POST',
+//         headers: { 'Content-Type': 'application/json' },
+//         body: JSON.stringify(formData),
+//       });
+
+//       const data = await response.json();
+
+//       if (!response.ok) {
+//         setErrors({ submit: data.message || 'Registration failed' });
+//       } else {
+//         alert('Account created successfully! Please login.');
+//         navigate('/service-provider/auth'); 
+//       }
+//     } else {
+//       // Login API
+//       const response = await fetch('http://localhost:3000/api/provider/login', {
+//         method: 'POST',
+//         headers: { 'Content-Type': 'application/json' },
+//         body: JSON.stringify({ email: formData.email, password: formData.password }),
+//       });
+
+//       const data = await response.json();
+
+//       if (!response.ok) {
+//         setErrors({ submit: data.message || 'Login failed' });
+//       } else {
+//         alert('Login successful!');
+
+//         // Store JWT in localStorage for protected routes
+//         localStorage.setItem('token', data.token);
+
+//         // Optionally store provider info
+//         localStorage.setItem('user', JSON.stringify(data.provider));
+
+//         // Redirect to dashboard
+//         navigate('/service-provider/dashboard');
+//       }
+//     }
+//   } catch (error) {
+//     console.error('Error:', error);
+//     setErrors({ submit: error.message || 'Server error. Please try again.' });
+//   } finally {
+//     setIsLoading(false);
+//   }
+// };
+
 const handleSubmit = async (e) => {
   e.preventDefault();
   if (!validate()) return;
@@ -95,7 +151,7 @@ const handleSubmit = async (e) => {
         setErrors({ submit: data.message || 'Registration failed' });
       } else {
         alert('Account created successfully! Please login.');
-        navigate('/service-provider/auth'); // Redirect to login after signup
+        navigate('/service-provider/auth'); // Redirect to login
       }
     } else {
       // Login API
@@ -112,13 +168,11 @@ const handleSubmit = async (e) => {
       } else {
         alert('Login successful!');
 
-        // Store JWT in localStorage for protected routes
+        // Store JWT for protected routes
         localStorage.setItem('token', data.token);
-
-        // Optionally store provider info
         localStorage.setItem('user', JSON.stringify(data.provider));
 
-        // Redirect to dashboard
+        // Redirect to protected dashboard
         navigate('/service-provider/dashboard');
       }
     }
@@ -129,7 +183,6 @@ const handleSubmit = async (e) => {
     setIsLoading(false);
   }
 };
-
 
 
   const isFormValid = () => {
