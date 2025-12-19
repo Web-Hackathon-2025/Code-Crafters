@@ -93,13 +93,25 @@ const handleSubmit = async (e) => {
       if (!response.ok) {
         setErrors({ submit: data.message || 'Registration failed' });
       } else {
-        alert('Account created successfully!');
-        navigate('/service-provider/dashboard');
+        alert('Account created successfully! Please login.');
+        navigate('/service-provider/login'); // Redirect to login page after signup
       }
     } else {
-      // Login logic (if implemented)
-      // You can call login route here
-      alert('Login functionality not yet implemented');
+      // Login logic
+      const response = await fetch('http://localhost:3000/api/provider/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: formData.email, password: formData.password }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        setErrors({ submit: data.message || 'Login failed' });
+      } else {
+        alert('Login successful!');
+        navigate('/service-provider/dashboard'); // Redirect to dashboard after login
+      }
     }
   } catch (error) {
     console.error('Error:', error);
@@ -108,6 +120,7 @@ const handleSubmit = async (e) => {
     setIsLoading(false);
   }
 };
+
 
 
   const isFormValid = () => {

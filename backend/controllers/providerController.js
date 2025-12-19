@@ -31,3 +31,22 @@ exports.registerProvider = async (req, res) => {
     res.status(500).json({ message: "Server error", error: err.message });
   }
 };
+
+
+// Login provider
+exports.loginProvider = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    const provider = await Provider.findOne({ email });
+    if (!provider) return res.status(400).json({ message: "Invalid email or password" });
+
+    const isMatch = await bcrypt.compare(password, provider.password);
+    if (!isMatch) return res.status(400).json({ message: "Invalid email or password" });
+
+    // Optionally: generate a token (JWT) here if needed
+    res.status(200).json({ message: "Login successful", provider });
+  } catch (err) {
+    res.status(500).json({ message: "Server error", error: err.message });
+  }
+};
