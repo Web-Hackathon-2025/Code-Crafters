@@ -3,9 +3,12 @@ import './App.css'
 import Login from "./users/Login"
 import Signup from "./users/Signup"
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 import Auth from "./service_provider/Auth"
 import ServiceProviderDashboard from "./service_provider/ServiceProviderDashboard"
 =======
+=======
+>>>>>>> Stashed changes
 import AdminSignIn from './admin/AdminLogin';
 import Dashboard from './admin/Dashboard';
 
@@ -19,9 +22,14 @@ function App() {
       <Route path="/" element={<Login />} />
       <Route path="signup" element={<Signup/>}/>
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
       <Route path="service-provider/auth" element={<Auth/>}/>
       <Route path="service-provider/dashboard" element={<ServiceProviderDashboard/>}/>
     
+=======
+      <Route path="/admin" element={<AdminSignIn/>}/>
+      <Route path="/admin/dashboard" element={<Dashboard/>}/>
+>>>>>>> Stashed changes
 =======
       <Route path="/admin" element={<AdminSignIn/>}/>
       <Route path="/admin/dashboard" element={<Dashboard/>}/>
