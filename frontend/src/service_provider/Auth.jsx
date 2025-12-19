@@ -95,7 +95,7 @@ const handleSubmit = async (e) => {
         setErrors({ submit: data.message || 'Registration failed' });
       } else {
         alert('Account created successfully! Please login.');
-        navigate('/service-provider/login'); // Redirect to login after signup
+        navigate('/service-provider/auth'); // Redirect to login after signup
       }
     } else {
       // Login API
