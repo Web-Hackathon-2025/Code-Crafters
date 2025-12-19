@@ -62,13 +62,13 @@ function Header() {
 
         <div className="flex items-center gap-2">
           <a
-            href="/"
+            href="/customer"
             className="hidden sm:inline-flex items-center rounded-md border border-gray-700 px-3 py-1.5 text-xs font-medium text-gray-200 hover:bg-gray-800 transition-colors"
           >
             Sign In
           </a>
           <a
-            href="/"
+            href="/service-provider/auth"
             className="inline-flex items-center rounded-md border border-transparent bg-blue-600 px-3 py-1.5 text-xs font-semibold text-white shadow-sm hover:bg-blue-700 transition-colors"
           >
             Get Started

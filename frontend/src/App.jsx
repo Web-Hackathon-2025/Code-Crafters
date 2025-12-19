@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Routes, Route, Link } from "react-router-dom";
 import './App.css'
 import CustomerAuth from "./users/CustomerAuth"
-import KarigarLandingPage from "KarigarLandingPage"
+import KarigarLandingPage from "./KarigarLandingPage"
 import CustomerServiceDiscovery from "./users/CustomerServiceDiscovery"
 // import Signup from "./users/Signup"
 import Auth from "./service_provider/Auth"

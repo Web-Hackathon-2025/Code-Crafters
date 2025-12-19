@@ -100,7 +100,7 @@ if (!formData.area?.trim()) newErrors.area = 'Area is required';
       localStorage.setItem("token", res.data.token);
     }
 
-    navigate("/customer/dashboard");
+    navigate("/customer-service");
   } catch (error) {
     setErrors({
       submit:
