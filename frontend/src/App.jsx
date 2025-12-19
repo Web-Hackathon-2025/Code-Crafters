@@ -29,12 +29,8 @@ function App() {
       <Route path="/admin" element={<AdminSignIn/>}/>
       <Route path="/admin/dashboard" element={<Dashboard/>}/>
 
-
-
-
-
-
-
     </Routes>
   )
 }
+
+export default App
