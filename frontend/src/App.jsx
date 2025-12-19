@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import { Routes, Route, Link } from "react-router-dom";
 import './App.css'
-import Login from "./users/Login"
-import Signup from "./users/Signup"
+import CustomerAuth from "./users/CustomerAuth"
+
 import Auth from "./service_provider/Auth"
 
 function App() {
@@ -10,8 +10,7 @@ function App() {
 
   return (
     <Routes>
-      <Route path="/" element={<Login />} />
-      <Route path="signup" element={<Signup/>}/>
+      <Route path="/" element={<CustomerAuth />} />
       <Route path="service-provider/auth" element={<Auth/>}/>
     
     </Routes>
