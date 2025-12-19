@@ -17,13 +17,14 @@ const protect = (req, res, next) => {
 };
 
 // Middleware to restrict access based on role
-const restrictTo = (...roles) => {
+const restrictTo = (...types) => {
   return (req, res, next) => {
-    if (!roles.includes(req.user.role)) {
+    if (!types.includes(req.user.type)) {
       return res.status(403).json({ message: "Access denied: insufficient permissions" });
     }
     next();
   };
 };
+
 
 module.exports = { protect, restrictTo };
