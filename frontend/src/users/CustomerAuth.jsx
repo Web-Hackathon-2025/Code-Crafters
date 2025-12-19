@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { FaUser, FaEnvelope, FaLock, FaPhone, FaHome, FaArrowRight } from 'react-icons/fa';
+import axios from 'axios';
 
 const CustomerAuth = () => {
   const [activeTab, setActiveTab] = useState('login');
@@ -60,25 +61,76 @@ if (!formData.area?.trim()) newErrors.area = 'Area is required';
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (!validate()) return;
+  e.preventDefault();
+  if (!validate()) return;
 
-    setIsLoading(true);
-    try {
-      await new Promise(resolve => setTimeout(resolve, 1500)); // Simulated API call
-      navigate('/customer/dashboard');
-    } catch (error) {
-      setErrors({ submit: error.message || 'An error occurred. Please try again.' });
-    } finally {
-      setIsLoading(false);
+  setIsLoading(true);
+
+  try {
+
+    let payload = {
+      email: formData.email,
+      password: formData.password
+    };
+
+    if (activeTab === "signup") {
+      payload = {
+        name: formData.name,
+        email: formData.email,
+        password: formData.password,
+        role: "customer",
+        phone: formData.phone,
+        location: {
+          city: formData.city,
+          area: formData.area
+        }
+      };
     }
-  };
+
+    // 3️⃣ Call API
+    const url =
+       activeTab === "signup"
+    ? "http://localhost:3000/api/user/register" // <-- correct path
+    : "http://localhost:3000/api/auth/login";
+
+    const res = await axios.post(url, payload);
+
+    // 4️⃣ Save token if login returns one (future-ready)
+    if (res.data.token) {
+      localStorage.setItem("token", res.data.token);
+    }
+
+    navigate("/customer/dashboard");
+  } catch (error) {
+    setErrors({
+      submit:
+        error.response?.data?.message ||
+        "Something went wrong. Please try again."
+    });
+  } finally {
+    setIsLoading(false);
+  }
+};
+
 
   const isFormValid = () => {
-    if (activeTab === 'login') return formData.email && formData.password && formData.password.length >= 6;
-    return formData.name && formData.email && formData.phone && formData.address && formData.password &&
-      formData.confirmPassword && formData.password === formData.confirmPassword && formData.terms;
-  };
+  if (activeTab === 'login') {
+    return formData.email && formData.password && formData.password.length >= 6;
+  }
+  // signup validation
+  return (
+    formData.name &&
+    formData.email &&
+    formData.phone &&
+    formData.city &&
+    formData.area &&
+    formData.password &&
+    formData.confirmPassword &&
+    formData.password === formData.confirmPassword &&
+    formData.terms
+  );
+};
+
 
   return (
     <div className="min-h-screen bg-gray-900 flex flex-col md:flex-row text-white">
