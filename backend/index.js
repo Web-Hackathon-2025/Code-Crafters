@@ -2,11 +2,21 @@ const express = require("express");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const adminRoutes = require("./routes/adminRoutes"); 
+const providerRoutes = require("./routes/providerRoutes")
 
 dotenv.config();
 
 const app = express();
 app.use(express.json());
+
+const cors = require("cors");
+
+app.use(cors({
+  origin: "http://localhost:5173", // your frontend URL
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  credentials: true, // if you use cookies/auth
+}));
+
 
 // MongoDB connection
 mongoose.connect(process.env.MONGO_URI)
@@ -15,6 +25,7 @@ mongoose.connect(process.env.MONGO_URI)
 
 // Use routes
 app.use("/api/auth", adminRoutes); 
+app.use("/api/provider", providerRoutes);
 
 // Default route
 app.get("/", (req, res) => {

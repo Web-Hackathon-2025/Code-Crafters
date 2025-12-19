@@ -74,23 +74,41 @@ const Auth = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (!validate()) return;
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  if (!validate()) return;
 
-    setIsLoading(true);
-    try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1500));
-      // On success, redirect to dashboard
-      navigate('/service-provider/dashboard');
-    } catch (error) {
-      console.error('Authentication error:', error);
-      setErrors({ submit: error.message || 'An error occurred. Please try again.' });
-    } finally {
-      setIsLoading(false);
+  setIsLoading(true);
+  try {
+    if (activeTab === 'signup') {
+      // Call backend API to create account
+      const response = await fetch('http://localhost:3000/api/provider/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        setErrors({ submit: data.message || 'Registration failed' });
+      } else {
+        alert('Account created successfully!');
+        navigate('/service-provider/dashboard');
+      }
+    } else {
+      // Login logic (if implemented)
+      // You can call login route here
+      alert('Login functionality not yet implemented');
     }
-  };
+  } catch (error) {
+    console.error('Error:', error);
+    setErrors({ submit: error.message || 'Server error. Please try again.' });
+  } finally {
+    setIsLoading(false);
+  }
+};
+
 
   const isFormValid = () => {
     if (activeTab === 'login') {
