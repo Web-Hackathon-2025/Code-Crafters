@@ -5,6 +5,7 @@ import Login from "./users/Login"
 import Signup from "./users/Signup"
 import Auth from "./service_provider/Auth"
 import ServiceProviderDashboard from "./service_provider/ServiceProviderDashboard"
+import ServiceManagement from "./service_provider/ServiceManagement"
 function App() {
 
 
@@ -14,6 +15,7 @@ function App() {
       <Route path="signup" element={<Signup/>}/>
       <Route path="service-provider/auth" element={<Auth/>}/>
       <Route path="service-provider/dashboard" element={<ServiceProviderDashboard/>}/>
+      <Route path="service-provider/service-management" element={<ServiceManagement/>}/>
     
     </Routes>
   )
