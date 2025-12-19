@@ -14,16 +14,16 @@ function App() {
     <Routes>
       <Route path="/" element={<CustomerAuth />} />
 
-      <Route path="service-provider/auth" element={<Auth />} />
-      <Route path="service-provider/dashboard" element={<ServiceProviderDashboard />} />
-      <Route path="service-provider/service-management" element={<ServiceManagement />} />
-      <Route path="service-provider/service-request" element={<ServiceRequestsHistory />} />
+      <Route path="service-provider/auth" element={<Auth/>}/>
+      <Route path="service-provider/dashboard" element={<ServiceProviderDashboard/>}/>
+      <Route path="service-provider/service-management" element={<ServiceManagement/>}/>
+      <Route path="service-provider/service-request" element={<ServiceRequestsHistory/>}/>
+    
+      <Route path="/admin" element={<AdminSignIn/>}/>
+      <Route path="/admin/dashboard" element={<Dashboard/>}/>
 
-      {/* Uncomment admin routes when needed */}
-      {/* <Route path="/admin" element={<AdminSignIn />} />
-      <Route path="/admin/dashboard" element={<Dashboard />} /> */}
     </Routes>
-  );
+  )
 }
 
-export default App;
+export default App
