@@ -79,9 +79,10 @@ const handleSubmit = async (e) => {
   if (!validate()) return;
 
   setIsLoading(true);
+
   try {
     if (activeTab === 'signup') {
-      // Call backend API to create account
+      // Signup API
       const response = await fetch('http://localhost:3000/api/provider/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -94,10 +95,10 @@ const handleSubmit = async (e) => {
         setErrors({ submit: data.message || 'Registration failed' });
       } else {
         alert('Account created successfully! Please login.');
-        navigate('/service-provider/login'); // Redirect to login page after signup
+        navigate('/service-provider/login'); // Redirect to login after signup
       }
     } else {
-      // Login logic
+      // Login API
       const response = await fetch('http://localhost:3000/api/provider/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -110,7 +111,15 @@ const handleSubmit = async (e) => {
         setErrors({ submit: data.message || 'Login failed' });
       } else {
         alert('Login successful!');
-        navigate('/service-provider/dashboard'); // Redirect to dashboard after login
+
+        // Store JWT in localStorage for protected routes
+        localStorage.setItem('token', data.token);
+
+        // Optionally store provider info
+        localStorage.setItem('user', JSON.stringify(data.provider));
+
+        // Redirect to dashboard
+        navigate('/service-provider/dashboard');
       }
     }
   } catch (error) {
