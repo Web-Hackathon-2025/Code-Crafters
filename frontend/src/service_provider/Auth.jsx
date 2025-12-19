@@ -79,9 +79,10 @@ const handleSubmit = async (e) => {
   if (!validate()) return;
 
   setIsLoading(true);
+
   try {
     if (activeTab === 'signup') {
-      // Call backend API to create account
+      // Signup API
       const response = await fetch('http://localhost:3000/api/provider/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -93,13 +94,33 @@ const handleSubmit = async (e) => {
       if (!response.ok) {
         setErrors({ submit: data.message || 'Registration failed' });
       } else {
-        alert('Account created successfully!');
-        navigate('/service-provider/dashboard');
+        alert('Account created successfully! Please login.');
+        navigate('/service-provider/auth'); // Redirect to login after signup
       }
     } else {
-      // Login logic (if implemented)
-      // You can call login route here
-      alert('Login functionality not yet implemented');
+      // Login API
+      const response = await fetch('http://localhost:3000/api/provider/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: formData.email, password: formData.password }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        setErrors({ submit: data.message || 'Login failed' });
+      } else {
+        alert('Login successful!');
+
+        // Store JWT in localStorage for protected routes
+        localStorage.setItem('token', data.token);
+
+        // Optionally store provider info
+        localStorage.setItem('user', JSON.stringify(data.provider));
+
+        // Redirect to dashboard
+        navigate('/service-provider/dashboard');
+      }
     }
   } catch (error) {
     console.error('Error:', error);
@@ -108,6 +129,7 @@ const handleSubmit = async (e) => {
     setIsLoading(false);
   }
 };
+
 
 
   const isFormValid = () => {
