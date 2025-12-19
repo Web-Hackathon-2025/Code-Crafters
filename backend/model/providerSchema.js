@@ -1,12 +1,17 @@
-const providerSchema = new mongoose.Schema({
-  user: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
-  servicesOffered: [{ type: String }], // e.g., "Plumber", "Carpenter"
-  pricing: { type: Number },
-  location: { type: String },
-  approvalStatus: { type: String, enum: ["PENDING", "APPROVED", "REJECTED", "SUSPENDED"], default: "PENDING" },
-  ratingsAverage: { type: Number, default: 0 },
-  ratingsCount: { type: Number, default: 0 },
-  createdAt: { type: Date, default: Date.now },
-});
+const mongoose = require("mongoose");
 
-module.exports = mongoose.model("ServiceProvider", providerSchema);
+const providerSchema = new mongoose.Schema(
+  {
+    name: { type: String, required: true },
+    businessName: { type: String, required: true },
+    phone: { type: String, required: true },
+    serviceCategory: { type: String, required: true },
+    address: { type: String, required: true },
+    email: { type: String, required: true, unique: true },
+    password: { type: String, required: true },
+    terms: { type: Boolean, required: true },
+  },
+  { timestamps: true }
+);
+
+module.exports = mongoose.model("Provider", providerSchema);

@@ -13,8 +13,6 @@ import ServiceRequestHistory from "./service_provider/ServiceRequestHistory"
 
 
 function App() {
-
-
   return (
     <Routes>
       {/* <Route path="/" element={<Login />} /> */}
@@ -34,4 +32,3 @@ function App() {
 }
 
 export default App
-
